@@ -1,0 +1,159 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/monstyle.css">
+<script type="text/javascript" src="js/valider.js"></script>
+</head>
+<body>
+<div style="position:absolute;top:-2%;left:35%;">
+	<p><h1>Gestion des membres</h1></p>
+</div>
+<div style="position:absolute;top:-5%;left:80%;">
+	<img src="Images/logo.png">
+</div>
+<table class="options" border=1 style="position:absolute;top:10%;width:98%" bgcolor=#989895>
+ <tr>
+ <td id="td1" onclick="afficher(1)">Enregistrer un membre</td>
+ <td id="td2" onclick="afficher(2)">Lister tous les membres</td>
+ <td id="td3" onclick="afficher(3)">Lister un membre</td>
+ <td id="td4" onclick="afficher(4)">Lister par catégorie</td>
+ <td id="td5" onclick="afficher(5)">Modifier photo</td>
+ <td id="td6" onclick="afficher(6)">Enlever membre</td>
+ <td id="td7" onclick="afficher(7)">Modifier membre</td>
+ <td id="td8" onclick="afficher(8)">Connexion</td>
+ </tr>
+ </table>
+<!--*********************************************************************************** -->
+<div id="fr1" style="position:absolute;visibility:hidden;top:20%;left:25%">
+<FORM ENCTYPE="multipart/form-data" name="ajouterMemb" action="PHP-gestionMembres/gestionMembres.php" method="post">
+<table class="tableau" bgcolor=#ECE9D8>
+ 
+ <tr><td><b>Connexion</b></td><td>&nbsp;</td><td><img src="Images/membre.png"></td></tr>
+ <tr><td>Pseudo : <input type="text" id="pseudo" name="pseudo"></td><td><img id="img1" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Mot de passe : <input type="password" id="pass" name="pass"></td><td><img id="img2" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td><br><b>Informations</b></br></td></tr>
+ <tr><td>Nom : <input type="text" id="nom" name="nom"></td><td><img id="img3" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Prénom : <input type="text" id="prenom" name="prenom"></td><td><img id="img4" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Âge : <input type="text" id="age" name="age"></td><td><img id="img5" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Adresse :</td></tr>
+ <tr><td> <textarea id="adresse" name="adresse" rows="2" cols="30">
+				   </textarea> </td><td><img id="img6" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Catégorie : <select id ="categ" name="categ">
+					<OPTION VALUE="per"> Permanent</OPTION>
+					<OPTION VALUE="tem"> Temporaire</OPTION>
+					<OPTION VALUE="vis"> Visiteur</OPTION>
+				 </select>
+
+ </td><td><img id="img7" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Photo : <input type="file" id="photo" name="photo"></td></tr>
+ <tr><td><input type="reset" value="Vider"></td>
+ <td><input type="button" value="Envoyer" onClick="valider()"></td>
+ <td><input type="button" value="Fermer" onClick="fermer(1)"></td></tr>
+ </table>
+ <input type="hidden" name="action" value="ajouter">
+ </form>
+</DIV>
+<!--*********************************************************************************** -->
+<div id="fr2" style="position:absolute;visibility:hidden;top:25%;left:25%">
+<FORM name="listerMembres" action="PHP-gestionMembres/gestionMembres.php" method="post">
+	<input type="hidden" name="action" value="listerTout">
+</FORM>
+</DIV>
+<!--*********************************************************************************** -->
+<div id="fr3" style="position:absolute;visibility:hidden;top:25%;left:45%">
+<FORM name="listerUnMembre" action="PHP-gestionMembres/gestionMembres.php" method="post">
+<table>
+ 
+ <tr><td>Pseudo : <input type="text" id="pseudo" name="pseudo"></td></tr>
+ </table>
+ <input type="hidden" name="action" value="listerMembre">
+ <input type="submit" value="Envoyer">
+ </form>
+</DIV>
+<!--*********************************************************************************** -->
+<div id="fr4" style="position:absolute;visibility:hidden;top:25%;left:65%">
+<FORM name="listerCateg" action="PHP-gestionMembres/gestionMembres.php" method="post">
+<table>
+ <tr><td>Catégorie : <select id ="categ" name="categ">
+					<OPTION VALUE="per"> Permanent</OPTION>
+					<OPTION VALUE="tem"> Temporaire</OPTION>
+					<OPTION VALUE="vis"> Visiteur</OPTION>
+				 </select></td></tr>
+ </table>
+ <input type="hidden" name="action" value="listerParCateg">
+ <input type="submit" value="Envoyer">
+ </form>
+</DIV>
+<!--*********************************************************************************** -->
+<div id="fr5" style="position:absolute;visibility:hidden;top:25%;left:75%">
+<FORM name="modifierPhoto" ENCTYPE="multipart/form-data" action="PHP-gestionMembres/gestionMembres.php" method="post">
+<table>
+<tr><td>Pseudo : <input type="text" id="pseudo" name="pseudo"></td></tr>
+ <tr><td>Photo : <input type="file" id="photo" name="photo"></td></tr>
+ </table>
+ <input type="hidden" name="action" value="changerPhoto">
+ <input type="submit" value="Envoyer">
+ </form>
+</DIV>
+<!--*********************************************************************************** -->
+<div id="fr6" style="position:absolute;visibility:hidden;top:25%;left:45%">
+<FORM name="enleverUnMembre" action="PHP-gestionMembres/gestionMembres.php" method="post">
+<table>
+ 
+ <tr><td>Pseudo : <input type="text" id="pseudo" name="pseudo"></td></tr>
+ </table>
+ <input type="hidden" name="action" value="enleverMembre">
+ <input type="submit" value="Envoyer">
+ </form>
+</DIV>
+<!--*********************************************************************************** -->
+<!--*********************************************************************************** -->
+<div id="fr7" style="position:absolute;visibility:hidden;top:20%;left:25%">
+<FORM ENCTYPE="multipart/form-data" name="modifierMemb" action="PHP-gestionMembres/gestionMembres.php" method="post">
+<table class="tableau" bgcolor=#ECE9D8>
+ 
+ <tr><td><b>Connexion</b></td><td>&nbsp;</td><td><img src="Images/membre.png"></td></tr>
+ <tr><td>Pseudo : <input type="text" id="pseudo" name="pseudo"></td><td><img id="img1" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Mot de passe : <input type="password" id="pass" name="pass"></td><td><img id="img2" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td><br><b>Informations</b></br></td></tr>
+ <tr><td>Nom : <input type="text" id="nom" name="nom"></td><td><img id="img3" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Prénom : <input type="text" id="prenom" name="prenom"></td><td><img id="img4" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Âge : <input type="text" id="age" name="age"></td><td><img id="img5" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Adresse :</td></tr>
+ <tr><td> <textarea id="adresse" name="adresse" rows="2" cols="30">
+				   </textarea> </td><td><img id="img6" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Catégorie : <select id ="categ" name="categ">
+					<OPTION VALUE="per"> Permanent</OPTION>
+					<OPTION VALUE="tem"> Temporaire</OPTION>
+					<OPTION VALUE="vis"> Visiteur</OPTION>
+				 </select>
+
+ </td><td><img id="img7" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td><input type="reset" value="Vider"></td>
+ <td><input type="button" value="Envoyer" onClick="validerModifier()"></td>
+ <td><input type="button" value="Fermer" onClick="fermer(1)"></td></tr>
+ </table>
+ <input type="hidden" name="action" value="modifierMembre">
+ </form>
+</DIV>
+<!--*********************************************************************************** -->
+<div id="fr8" style="position:absolute;visibility:hidden;top:40%;left:35%">
+<FORM name="connexion" action="PHP-gestionMembres/gestionMembres.php" method="post">
+<table class="tableau" bgcolor=#ECE9D8>
+ 
+ <tr><td><b>Connexion</b></td><td>&nbsp;</td><td><img src="Images/membre.png"></td></tr>
+ <tr><td>Pseudo : <input type="text" id="pseudo" name="pseudo"></td><td><img id="img1" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td>Mot de passe : <input type="password" id="pass" name="pass"></td><td><img id="img2" src="Images/OK.jpg" style="visibility:hidden;"></td></tr>
+ <tr><td><input type="submit" value="Connecter"></td></tr>
+ </table>
+ <input type="hidden" name="action" value="connexion">
+ 
+ </form>
+</DIV>
+<!--********************************BARRE ETAT******************************************* -->
+<table class="barreEtat" id="barreEtat" style="position:absolute;top:94%;width:98%" onClick="document.getElementById('msg').innerText=22" >
+ <tr><td>
+	<p id="msg">message</p>
+ </td></tr>
+</table>
+</body>
+</html>
